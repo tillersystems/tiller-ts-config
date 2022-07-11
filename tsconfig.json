@@ -5,7 +5,5 @@
     "checkJs": false,
     "resolveJsonModule": true,
     "types": ["jest", "node"]
-  },
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.d.ts"]
+  }
 }
