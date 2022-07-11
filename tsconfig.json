@@ -4,6 +4,14 @@
     "lib": ["es2021", "es2022"],
     "checkJs": false,
     "resolveJsonModule": true,
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    // that needs fixing in armada-shared
+    "exactOptionalPropertyTypes": false,
+    "strict": false,
+    "importsNotUsedAsValues": "preserve",
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": false,
+    "noImplicitOverride": false,
+    "noUnusedLocals": false
   }
 }

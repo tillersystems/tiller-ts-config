@@ -23,6 +23,6 @@ yarn install -D @tillersystems/ts-config
 
 ```json
 {
-  "extends": "@tillersystems/ts-config"
+  "extends": "@tillersystems/ts-config/tsconfig.json"
 }
 ```
