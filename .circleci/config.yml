@@ -1,65 +1,19 @@
 version: 2.1
 
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/node:12.20
-
-jobs:
-  lint:
-    <<: *defaults
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-
-      - run: yarn
-      - run:
-          name: Run linter
-          command: yarn lint
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - persist_to_workspace:
-          root: ~/repo
-          paths: .
-  deploy:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
-      - run:
-          name: Publish package based on package.json version
-          command: npm publish
+orbs:
+  sls: tillersystems/sls@0.0.7
 
 workflows:
   version: 2
-  lint:
+  tagged-build:
     jobs:
-      - lint
-
-  deploy:
-    jobs:
-      - lint:
+      - sls/publish_only:
+          package_version: $CIRCLE_TAG
+          node_version: "14.17.0"
+          ssh_key_fingerprint: "4a:d0:28:34:be:9b:64:02:a3:30:ff:7b:b0:36:b1:5e"
+          base_branch: "main"
           filters:
-            tags:
-              only: /^v.*/
             branches:
               ignore: /.*/
-      - deploy:
-          requires:
-            - lint
-          filters:
             tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+              only: /^v[0-9]+(\.[0-9]+)*.*$/
