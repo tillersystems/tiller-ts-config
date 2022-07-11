@@ -1,0 +1,8 @@
+# editors stuff
+.idea/
+
+# node stuff
+node_modules/
+yarn-error.log
+
+coverage
