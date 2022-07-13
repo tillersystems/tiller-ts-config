@@ -5,10 +5,10 @@
     "checkJs": false,
     "resolveJsonModule": true,
     "types": ["jest", "node"],
+    "importsNotUsedAsValues": "preserve",
     // that needs fixing in armada-shared
     "exactOptionalPropertyTypes": false,
     "strict": false,
-    "importsNotUsedAsValues": "preserve",
     "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": false,
     "noImplicitOverride": false,
